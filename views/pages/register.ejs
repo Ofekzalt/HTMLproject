@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/register.css"> 
+    <link rel="stylesheet" href="header.css"> 
+    <title>Register</title>
+</head>
+<style>
+    .wrapper{
+        display: flex;
+        justify-content: center;
+    }
+    .registrationForm{
+        width: 300px;
+    }
+</style>
+<body>
+
+    <div class="wrapper">
+        <form id="registrationForm">
+            <h2> Register</h2>
+
+       
+            <div class="input-field">
+                <input type="text" id="fullName" required>
+                <label for="fullName">Enter your full name:</label>
+            </div>
+
+       
+            <div class="input-field">
+                <input type="email" id="email" required>
+                <label for="email">Enter your email:</label>
+            </div>
+
+          
+            <div class="input-field">
+                <input type="password" id="password" required>
+                <label for="password">Enter the password you desire:</label>
+            </div>
+
+           
+            <div class="input-field">
+                <input type="password" id="confirmPassword" required>
+                <label for="confirmPassword">Confirm your password:</label>
+            </div>
+
+            <p id="warningMessage" class="warning hidden">Passwords do not match. Please try again.</p>
+
+       
+            <div class="input-field">
+                <a href="index.html">
+                    <button type="button">Resgister</button>
+                </a>
+            </div>
+
+            <p>Already have an account? <a href="login.html">Log in</a></p>
+        </form>
+    </div>
+
+  
+    <script src="register.js"></script>
+
+</body>
+</html>

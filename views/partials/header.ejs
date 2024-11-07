@@ -1,0 +1,74 @@
+<section id="header">
+  <a href="#"><img src="img/logo.png" class="logo" alt="Logo" /></a>
+  <div>
+    <ul id="navbar">
+      <li><a class="active" href="/">Home</a></li>
+      <li><a href="about">About</a></li>
+      <li><a href="contact">Contact</a></li>
+      <% if(user){ %> <% if(user.isAdmin){ %>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <% } %>
+      <li><a id="logout-btn" href="#">LogOut</a></li>
+      <% } else { %>
+      <li><a href="login">Login</a></li>
+      <% } %>
+      <li>
+        <a href="cart"
+          ><img src="img/shopping.png" alt="Cart" class="shopping"
+        /></a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<script>
+  // קוד JavaScript לצד לקוח
+  const logoutBtn = document.getElementById("logout-btn");
+
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", async (event) => {
+      event.preventDefault(); // מונע מהכפתור לבצע פעולה מחדלת (רינדור מחדש)
+
+      try {
+        // שליחת בקשת POST לנתיב ההתנתקות
+        const response = await fetch("/logout", {
+          method: "POST",
+          credentials: "include", // מאפשר שליחת עוגיות
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.ok) {
+          alert("התנתקת בהצלחה!");
+          deleteToken(); // מחיקת הטוקן מהעוגיה
+
+          // עדכון המצב, למשל הסתרת כפתור ההתנתקות
+          logoutBtn.style.display = "none";
+          document.getElementById("navbar").style.display = "none"; // אם אתה רוצה להסתיר את ה-navbar
+
+          // הפניית המשתמש לדף הבית
+          window.location.href = "/";
+        } else {
+          alert("שגיאה בתהליך ההתנתקות. נסה שוב.");
+        }
+      } catch (error) {
+        console.error("Error logging out:", error);
+        alert("אירעה שגיאה במהלך ההתנתקות. אנא נסה שוב.");
+      }
+    });
+  }
+  function deleteToken() {
+    document.cookie = "auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; 
+}
+  // Hide the header if the URL contains 'login'
+  if (
+    window.location.pathname.includes("login") ||
+    window.location.pathname.includes("register")
+  ) {
+    document.getElementById("header").style.display = "none";
+  } else {
+    document.getElementById("header").style.display = "flex";
+  }
+</script>
